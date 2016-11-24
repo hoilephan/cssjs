@@ -110,7 +110,7 @@
 })(jQuery);
         
 jQuery(window).load(function() {
-		if(document.cookie.indexOf("adf") == -1)  // Muốn xuất hiện liều lần thì đặt 2 đấu // đầu cùng
+		if(document.cookie.indexOf("adf") == -1)
 		{
 			document.cookie = "adfpopunder1=adf";
 			var divpopup = document.createElement("div");
