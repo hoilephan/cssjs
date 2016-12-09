@@ -117,7 +117,7 @@ jQuery(window).load(function() {
 			jQuery(divpopup).attr('id', 'myModal');
 			jQuery(divpopup).attr('class', 'linhnguyen-modal');
 			jQuery( "body" ).append(divpopup);
-			jQuery("#myModal").html("<a href='http://bit.ly/2fvxHIV' target='_blank'><img src='http://datnenthuongmai.com/img/uploads/danh-muc/golden-center-city2.gif' width='500px'/><br/>Căn hộ Lavita Garden</a>Nhà đất Hưng Thịnh<h2><a class='close-linhnguyen-modal'>X</a></h2>");
+			jQuery("#myModal").html("<a href='http://bit.ly/2ge22y3' target='_blank'><img src='http://nhadathungthinh.net/img/uploads/danh-muc/Moonlight-Park-View-doc.gif' width='500px'/><br/>Mở bán Moonlight Park View</a>Nhà đất Hưng Thịnh<h2><a class='close-linhnguyen-modal'>X</a></h2>");
 			jQuery('#myModal').linhnguyen(jQuery('#myModal').data());
 		}
 });
