@@ -117,7 +117,7 @@ jQuery(window).load(function() {
 			jQuery(divpopup).attr('id', 'myModal');
 			jQuery(divpopup).attr('class', 'linhnguyen-modal');
 			jQuery( "body" ).append(divpopup);
-			jQuery("#myModal").html("<a href='http://bit.ly/2fvxHIV' target='_blank'><img src='http://datnenthuongmai.com/img/uploads/danh-muc/golden-center-city2.gif' width='500px'/><br/>Nhận đặt chỗ Golden Center City 2</a> - Đất nền thương mại. com<h2><a class='close-linhnguyen-modal'>X</a></h2>");
+			jQuery("#myModal").html("<a href='http://bit.ly/2fvxHIV' target='_blank'><img src='http://datnenthuongmai.com/img/uploads/san-giao-dich/Golden%20Center%20City%202/golden-center-city-2-moban.gif' width='500px'/><br/>Mở bán Golden Center City 2</a> - Đất nền thương mại. com<h2><a class='close-linhnguyen-modal'>X</a></h2>");
 			jQuery('#myModal').linhnguyen(jQuery('#myModal').data());
 		}
 });
