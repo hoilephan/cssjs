@@ -1,6 +1,3 @@
-//please contact me giaiphapthuonghieu.org@gmail.com
-//website http://giaiphapthuonghieu.vn or http://faceseo.vn
-
 (function(JQuery) {
     JQuery.fn.linhnguyen = function(options) {        
         var defaults = {  
@@ -117,7 +114,7 @@ jQuery(window).load(function() {
 			jQuery(divpopup).attr('id', 'myModal');
 			jQuery(divpopup).attr('class', 'linhnguyen-modal');
 			jQuery( "body" ).append(divpopup);
-			jQuery("#myModal").html("<a href='http://bit.ly/2gJFkwq' target='_blank'><img src='http://nhadathungthinh.net/img/uploads/san-giao-dich/Golden%20Bay/golen-bay.jpg' width='500px'/><br/>Căn hộ Lavita Garden</a>Nhà đất Hưng Thịnh<h2><a class='close-linhnguyen-modal'>X</a></h2>");
+			jQuery("#myModal").html("<a href='http://bit.ly/2gJFkwq' target='_blank'><img src='https://rawgithub.com//hoilephan/bloggocnhinnhadat/master/Golden-bay.gif' width='500px'/><br/>Golden Bay </a>Nhà đất Hưng Thịnh<h2><a class='close-linhnguyen-modal'>X</a></h2>");
 			jQuery('#myModal').linhnguyen(jQuery('#myModal').data());
 		}
 });
