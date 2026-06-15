@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Cẩm nang Đào tạo NVKD Vinhomes</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f1f5f9;min-height:100vh;color:#1e293b}
+#app{max-width:960px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+button{font-family:inherit;cursor:pointer}
+input{font-family:inherit}
+::-webkit-scrollbar{height:4px;width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+.header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#1d4ed8 100%);padding:14px 14px 10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.logo-badge{background:#f59e0b;border-radius:8px;padding:5px 11px;font-weight:900;font-size:13px;color:#0f172a;letter-spacing:1px;flex-shrink:0}
+.header-title{color:#fff;font-weight:700;font-size:14px;line-height:1.2}
+.header-sub{color:#93c5fd;font-size:10px}
+.search-wrap{position:relative;margin-bottom:9px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:14px;pointer-events:none}
+.search-input{width:100%;padding:8px 34px 8px 30px;border-radius:20px;border:none;font-size:12px;background:rgba(255,255,255,.15);color:#fff;outline:none;caret-color:#fff}
+.search-input::placeholder{color:rgba(255,255,255,.5)}
+.search-clear{position:absolute;right:9px;top:50%;transform:translateY(-50%);background:none;border:none;color:#cbd5e1;font-size:19px;line-height:1;padding:0}
+.tab-bar{display:flex;gap:4px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{background:rgba(255,255,255,.12);color:#e2e8f0;border:none;border-radius:16px;padding:5px 10px;font-size:11px;font-weight:500;white-space:nowrap;flex-shrink:0;transition:all .15s}
+.tab-btn.active{background:#f59e0b;color:#0f172a;font-weight:800}
+.body{padding:14px 12px 60px;flex:1}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin-bottom:10px}
+.sec-head{font-weight:700;color:#475569;font-size:11px;letter-spacing:.6px;margin-bottom:10px;text-transform:uppercase}
+.pill{border-radius:10px;padding:2px 10px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.info-box{border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.7;margin-top:8px}
+.warn-box{background:#fff1f2;border:2px solid #fca5a5;border-radius:12px;padding:14px;margin-bottom:12px}
+.warn-title{font-weight:800;color:#7f1d1d;font-size:12px;margin-bottom:8px}
+.warn-item{display:flex;gap:8px;margin-bottom:5px;align-items:flex-start}
+.warn-x{color:#ef4444;font-weight:900;flex-shrink:0;font-size:13px}
+.warn-text{color:#7f1d1d;font-size:12px;line-height:1.6}
+.acc{background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin-bottom:10px;overflow:hidden}
+.acc-btn{display:flex;justify-content:space-between;align-items:flex-start;padding:13px 15px;width:100%;background:#fff;border:none;border-radius:12px;text-align:left;gap:10px;transition:background .15s}
+.acc-btn.open{background:#f8fafc;border-radius:12px 12px 0 0}
+.acc-body{border-top:1px solid #f1f5f9;border-radius:0 0 12px 12px}
+.acc-badge{border-radius:6px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0;color:#fff}
+.acc-title{font-weight:700;font-size:13px;color:#1e293b;line-height:1.3;flex:1;min-width:0}
+.acc-sub{color:#64748b;font-size:11px;margin-top:3px}
+.acc-arrow{color:#94a3b8;font-size:16px;flex-shrink:0;margin-top:2px}
+.page-title{font-size:17px;font-weight:800;color:#1e3a8a;margin-bottom:6px}
+.page-sub{color:#64748b;font-size:12px;margin-bottom:14px}
+.actor-badge{border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px;text-align:center;min-width:72px}
+.step-row{display:flex;gap:9px;align-items:flex-start}
+.step-text{border-radius:8px;padding:8px 11px;flex:1;font-size:12px;line-height:1.5;border-left:3px solid}
+.check-item{display:flex;gap:9px;padding:7px 0;align-items:flex-start;border-bottom:1px solid #f1f5f9}
+.check-item:last-child{border-bottom:none}
+.check-icon{color:#22c55e;font-size:16px;flex-shrink:0;line-height:1.3}
+.check-text{font-size:12px;color:#334155;line-height:1.5}
+.tag-filter{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.tag-btn{border:none;border-radius:16px;padding:5px 11px;font-size:11px;font-weight:600;transition:all .15s}
+.faq-answer{background:#f0f9ff;border:1.5px solid #7dd3fc;border-left:4px solid #0369a1;border-radius:8px;padding:10px 12px;color:#0c4a6e;font-size:12px;line-height:1.8}
+.bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0}
+.bank-cell{background:#f8fafc;border-radius:8px;padding:9px 10px}
+.bank-cell-label{color:#64748b;font-size:10px;margin-bottom:2px}
+.bank-cell-val{color:#1e293b;font-size:11px;font-weight:600;line-height:1.5;white-space:pre-line}
+.rate-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
+.rate-table th{background:#1e3a8a;color:#fff;padding:6px 8px;text-align:left}
+.rate-table td{padding:6px 8px;border-bottom:1px solid #f1f5f9}
+.rate-table tr:nth-child(even) td{background:#f8fafc}
+.compare-table{width:100%;border-collapse:collapse;font-size:11px;min-width:460px}
+.compare-table th{background:#1e3a8a;color:#fff;padding:7px 9px;text-align:left}
+.compare-table td{padding:7px 9px;border-bottom:1px solid #f1f5f9}
+.compare-table tr:nth-child(even) td{background:#f8fafc}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.product-col{border-radius:8px;padding:10px}
+.product-col-title{font-weight:700;font-size:11px;margin-bottom:6px}
+.product-row{font-size:11px;margin-bottom:4px;display:flex;gap:5px}
+.product-row-label{color:#64748b;min-width:90px;flex-shrink:0}
+.search-result{background:#fff;border-radius:10px;padding:10px 14px;margin-bottom:6px;cursor:pointer;display:flex;gap:10px;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.07);transition:background .15s}
+.search-result:hover{background:#f8fafc}
+.footer{background:#0f172a;color:#475569;text-align:center;padding:12px 16px;font-size:10px;line-height:1.8}
+.footer-title{color:#94a3b8;font-weight:600;margin-bottom:2px}
+.abbr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:5px;padding:10px 14px 14px}
+.abbr-item{background:#f8fafc;border-radius:6px;padding:6px 9px;display:flex;gap:6px;align-items:flex-start}
+.abbr-key{background:#1e3a8a;color:#fff;border-radius:4px;padding:2px 6px;font-weight:700;font-size:9px;flex-shrink:0;margin-top:1px}
+.abbr-val{color:#475569;font-size:11px;line-height:1.4}
+.mode-wrap{display:flex;gap:5px;flex-wrap:wrap;padding:10px 0 6px}
+.mode-pill{background:#eff6ff;color:#1e40af;border-radius:10px;padding:2px 9px;font-size:11px;font-weight:600}
+.strength-row{display:flex;gap:7px;margin-bottom:5px;align-items:flex-start}
+.strength-check{color:#22c55e;font-weight:900;flex-shrink:0;margin-top:1px}
+.strength-text{color:#334155;font-size:12px;line-height:1.5}
+.cond-row{display:flex;gap:6px;margin-bottom:4px;align-items:flex-start}
+.cond-dot{color:#3b82f6;flex-shrink:0}
+.cond-text{color:#475569;font-size:11px;line-height:1.5}
+.contact-box{background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:8px;padding:10px 12px;margin-top:8px}
+.contact-label{font-weight:700;color:#1e40af;font-size:11px;margin-bottom:4px}
+.contact-val{color:#1e3a8a;font-size:11px;line-height:1.7;white-space:pre-line}
+.prepay-box{background:#fef9c3;border-radius:8px;padding:8px 10px}
+.prepay-row{font-size:11px;color:#713f12;line-height:1.6;display:flex;gap:6px;margin-bottom:2px}
+.loan-doc-item{display:flex;gap:7px;padding:5px 0;border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.loan-doc-item:last-child{border-bottom:none}
+.vn-col-bg{background:#eff6ff}
+.nn-col-bg{background:#f0fdf4}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr}
+  .bank-grid{grid-template-columns:1fr}
+  .header-title{font-size:13px}
+  .body{padding:12px 10px 60px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-badge">VINHOMES</div>
+      <div>
+        <div class="header-title">Cẩm nang Đào tạo Nhân viên Kinh doanh</div>
+        <div class="header-sub">Quy trình · Sản phẩm · Pháp lý · Ngân hàng · FAQ thực tế · 2024–2026</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput" class="search-input" placeholder="Tìm nhanh: NNN, lãi suất, TTOL, hồ sơ vay, chuyển nhượng, CCCD..." autocomplete="off"/>
+      <button class="search-clear" id="searchClear" style="display:none" onclick="clearSearch()">×</button>
+    </div>
+    <div class="tab-bar" id="tabBar"></div>
+  </div>
+  <div class="body" id="mainBody"></div>
+  <div class="footer">
+    <div class="footer-title">Cẩm nang Đào tạo NVKD Vinhomes</div>
+    Bộ phận Thủ tục · Phòng Kinh doanh · Công ty Cổ phần Vinhomes<br>
+    Lãi suất MB hiệu lực 15/05/2026 · MBV Bắc Sài Gòn khai trương 26/03/2026<br>
+    <div style="margin:8px 0 4px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px;align-items:center">
+      <a href="https://vinhomesmiennam.net" target="_blank" rel="noopener" style="color:#60a5fa;font-weight:700;text-decoration:none;font-size:12px">🌐 vinhomesmiennam.net</a>
+      <span style="color:#334155">|</span>
+      <a href="tel:0902235237" style="color:#4ade80;font-weight:700;text-decoration:none;font-size:12px">📞 0902 235 237</a>
+      <span style="color:#334155">·</span>
+      <a href="tel:0919223869" style="color:#4ade80;font-weight:700;text-decoration:none;font-size:12px">0919 223 869</a>
+    </div>
+    <span style="color:#dc2626;font-weight:600">Tài liệu nội bộ — không phát hành ra bên ngoài</span>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+const ABBR=[["TTĐC","Thỏa thuận đặt cọc"],["TTKQ","Thỏa thuận ký quỹ"],["HĐMB","Hợp đồng mua bán"],["HĐT","Hợp đồng thuê"],["VBCN","Văn bản chuyển nhượng"],["HĐCN","Hợp đồng chuyển nhượng"],["HCCN","Hạn chế chuyển nhượng"],["PTT / BPTT","Phòng / Bộ phận Thủ tục"],["PKD","Phòng Kinh doanh"],["NVKD","Nhân viên Kinh doanh"],["ĐL","Đại lý"],["PD","Phê duyệt"],["CNPQ","Cấp có thẩm quyền phê duyệt"],["CSBH","Chính sách bán hàng"],["PM","Phần mềm quản lý Vinhomes"],["NNN","Người nước ngoài"],["CCCD","Căn cước công dân gắn chip"],["CMND","Chứng minh nhân dân"],["HC","Hộ chiếu"],["UQ","Ủy quyền"],["HTLS","Hỗ trợ lãi suất (từ Chủ đầu tư)"],["TSBĐ","Tài sản bảo đảm"],["LTV","Loan-to-Value – Tỷ lệ cho vay / giá trị tài sản"],["CĐT","Chủ đầu tư (Vinhomes)"],["F1","Người mua trực tiếp từ CĐT"],["F2","Người nhận chuyển nhượng từ F1"],["GCN","Giấy chứng nhận quyền sử dụng đất / sở hữu nhà (Sổ đỏ/Sổ hồng)"],["ĐKKD","Đăng ký kinh doanh"],["BB","Biên bản họp"],["VKTD","Văn kiện tín dụng"],["TNTH","Trả nợ trước hạn"],["NQH","Nợ quá hạn"],["BCTC","Báo cáo tài chính"],["STK","Sổ tiết kiệm"],["TTOL","Thủ tục đặt cọc Online"],["OT","Office-tel (văn phòng có chức năng lưu trú ngắn hạn)"],["SO","Shop-Office"],["TMDV","Thương mại dịch vụ"],["DTTM","Diện tích thương mại"],["VP","Văn phòng"],["DNNN","Doanh nghiệp nước ngoài tại Việt Nam"],["CIC","Trung tâm Thông tin Tín dụng Quốc gia"],["VNeID","Ứng dụng định danh điện tử quốc gia mức 2"],["HSPL","Hồ sơ pháp lý dự án"],["DA","Dự án"],["TCB","Techcombank"],["VPB","VPBank"],["VTB","VietinBank"],["MBV","Modern Bank of Vietnam"]];
+
+const PRODUCTS=[{name:"Căn hộ chung cư (CC)",purpose:"Để ở",vn:{hd:true,thue:true,cn:"Chỉ nhượng lại cho người VN",thoihan:"Lâu dài (không thời hạn)"},nn:{hd:true,thue:true,cn:true,thoihan:"Cá nhân NN: 50 năm kể từ ngày cấp GCN quyền sở hữu. Tổ chức NN: không vượt thời hạn hoạt động của tổ chức tại VN."},note:"⚠️ TP.HCM: Hiện vướng quy định cấp sổ cho NNN — Luật Đất đai chưa cho phép NNN ghi nhận là người sử dụng đất."},{name:"Nhà ở tháp tầng",purpose:"Để ở và kinh doanh (theo quy định PL)",vn:{hd:true,thue:true,cn:"Chỉ nhượng lại cho người VN",thoihan:"Lâu dài"},nn:{hd:true,thue:true,cn:true,thoihan:"Như căn hộ CC"},note:"⚠️ TP.HCM: Tương tự căn hộ CC về vướng mắc cấp sổ cho NNN."},{name:"Office-tel (OT)",purpose:"Văn phòng có lưu trú ngắn hạn",vn:{hd:false,thue:false,cn:false,thoihan:"50 năm kể từ ngày CĐT nhận đất/thuê đất"},nn:{hd:false,thue:"DNNN: ✅",cn:false,thoihan:"50 năm, không vượt thời hạn hoạt động của DA và tổ chức NN tại VN."},note:"⛔ Người VN và NNN cá nhân đều KHÔNG được mua OT. Chỉ DNNN được thuê dài hạn."},{name:"DTTM cao tầng / TMDV thấp tầng",purpose:"Bố trí mục đích thương mại dịch vụ (cụ thể theo HSPL từng DA)",vn:{hd:false,thue:false,cn:false,thoihan:"Như OT"},nn:{hd:false,thue:"DNNN: ✅",cn:false,thoihan:"Như OT"},note:"⛔ Không được mua — chỉ thuê dài hạn (DNNN)."},{name:"Biệt thự / Condotel / Shop / Minihotel",purpose:"Đất ở theo hình thành đơn vị / TMDV",vn:{hd:true,thue:true,cn:"Như Căn OT",thoihan:"70 năm kể từ ngày CĐT nhận đất"},nn:{hd:"DNNN CÓ chức năng KD BĐS: ✅\nDNNN KHÔNG có chức năng KD BĐS: chỉ được thuê",thue:"DNNN: ✅",cn:"Như Căn OT",thoihan:"70 năm, không vượt thời hạn hoạt động DA và tổ chức NN."},note:"⚠️ NNN cá nhân: KHÔNG tham gia CTCT, chỉ mua để sử dụng đúng công năng theo DA."}];
+
+const PROCESS=[{phase:"BƯỚC 1",title:"Đặt căn",icon:"📍",color:"#1e40af",steps:[{actor:"KH",action:"Xác nhận nhu cầu, cung cấp giấy tờ tùy thân để NVKD kiểm tra điều kiện."},{actor:"NVKD",action:"Kiểm tra KH: quốc tịch, đối tượng bị cấm vận / trừng phạt, không thuộc blacklist CĐT."},{actor:"NVKD",action:"Kiểm tra loại sản phẩm có được bán cho đối tượng KH đó không; kiểm tra tỷ lệ NNN còn room trên PM."},{actor:"NVKD",action:"Xin PD theo CNPQ nếu có: ưu đãi ngoài CSBH / back CS cũ / PD ngoài / KH NNN / trường hợp đặc biệt."},{actor:"NVKD",action:"Đặt căn trên Phần mềm (PM) sau khi đã xác nhận đủ điều kiện."},{actor:"NVKD",action:"Hướng dẫn KH nộp tiền — nội dung chuẩn: [Mã căn] + [Tên KH] + 'nộp tiền cọc dự án [tên DA]'."},{actor:"PTT",action:"Tiếp nhận, xác nhận trên PM; soạn hồ sơ TTĐC/TTKQ; lập Đề nghị thanh toán đợt kế tiếp."}]},{phase:"BƯỚC 2",title:"Ký TTĐC / TTKQ",icon:"✍️",color:"#0369a1",modes:["Tại sàn (ưu tiên)","TTOL — chỉ CSBH hiện hành","Tại nhà — cần PD, rất hạn chế"],steps:[{actor:"NVKD",action:"Gửi mail yêu cầu cho PTT tối thiểu 3 tiếng làm việc trước, kèm PD và chứng từ tra soát (nếu có)."},{actor:"PTT",action:"Kiểm tra thông tin KH, CSBH, giá; soạn hồ sơ; lập Đề nghị thanh toán đợt tiếp theo."},{actor:"NVKD",action:"Hướng dẫn KH ký đúng và đầy đủ theo hướng dẫn ký của PTT. Chụp ảnh CCCD/HC đặt cạnh chữ ký lớn."},{actor:"NVKD",action:"Bàn giao hồ sơ đã ký về PTT kèm biên bản giao nhận trong tối đa 3 ngày làm việc. Quá hạn → PTT hủy hồ sơ."}]},{phase:"BƯỚC 3",title:"Ký HĐMB / HĐT / VBCN",icon:"📄",color:"#0f766e",modes:["Tại sàn (ưu tiên — mọi đối tượng)","Tại nhà — chỉ TTĐC/TTKQ + Phụ lục, hạn chế"],steps:[{actor:"NVKD",action:"Nhắc KH chuẩn bị hồ sơ gốc. NNN: HC có đóng dấu nhập cảnh VN đúng thời điểm ký HĐMB."},{actor:"NVKD",action:"Hướng dẫn KH đặt lịch tại appointment-booking.vinhomes.vn hoặc liên hệ PTT lấy số thứ tự tại sàn."},{actor:"PTT",action:"Soạn hợp đồng theo thông tin PM và CSBH; xác nhận nội dung với NVKD trước buổi ký."},{actor:"KH+NVKD",action:"Đến ký tại sàn PTT. NNN: phải chứng minh đang có mặt trên lãnh thổ VN."},{actor:"PTT",action:"Hoàn thiện hồ sơ ký; lưu trữ; lập Đề nghị thanh toán các đợt tiếp theo."}]},{phase:"BƯỚC 4",title:"Hỗ trợ vay Ngân hàng",icon:"🏦",color:"#7c3aed",steps:[{actor:"NVKD",action:"Giới thiệu KH đến NH liên kết phù hợp (TCB, VPBank, MB, BIDV, VietinBank, MBV)."},{actor:"KH",action:"Chuẩn bị hồ sơ vay: nhân thân + chứng minh thu nhập + tín dụng hiện tại + phương án vay + TSBĐ."},{actor:"NH",action:"Phản hồi hồ sơ (2 giờ–3 ngày tùy NH) → Phê duyệt → Soạn VKTD → Ký → Giải ngân vào TK CĐT/F1."},{actor:"NVKD",action:"Theo dõi tiến độ, hỗ trợ KH bổ sung hồ sơ, phối hợp với NH đến khi giải ngân thành công."}]},{phase:"BƯỚC 5",title:"Chuyển nhượng HĐMB / HĐT",icon:"🔄",color:"#b45309",note:"⛔ TUYỆT ĐỐI không thực hiện giao dịch chuyển nhượng tại nhà KH.",steps:[{actor:"KH (F1)",action:"Có nhu cầu chuyển nhượng HĐ cho bên thứ ba (F2). Liên hệ NVKD phụ trách."},{actor:"NVKD",action:"Liên hệ PTT xin hướng dẫn điều kiện và quy trình chuyển nhượng theo chính sách CĐT và PL hiện hành."},{actor:"PTT",action:"Kiểm tra: F1 đã đủ điều kiện chuyển nhượng theo HĐ, nghĩa vụ TC còn lại, TSBĐ tại NH (nếu đang vay)."},{actor:"KH+F2+PTT",action:"Ký Văn bản chuyển nhượng tại văn phòng PTT. Hoàn tất nghĩa vụ tài chính: thuế chuyển nhượng, phí theo quy định."},{actor:"PTT",action:"Cập nhật thông tin F2 lên PM; lập hồ sơ mới; lập Đề nghị thanh toán theo tiến độ còn lại."}]},{phase:"BƯỚC 6",title:"Bàn giao · Tất toán · Sổ đỏ",icon:"🏠",color:"#15803d",steps:[{actor:"CĐT/PTT",action:"Gửi thông báo bàn giao; lập Đề nghị tất toán số tiền đợt cuối theo HĐMB."},{actor:"KH",action:"Thanh toán tất toán (trực tiếp hoặc NH giải ngân nốt phần còn lại của khoản vay)."},{actor:"CĐT",action:"Ký Biên bản bàn giao BĐS và bàn giao chìa khóa; nộp hồ sơ cấp Sổ đỏ/Sổ hồng lên cơ quan nhà nước."},{actor:"NVKD",action:"Theo dõi và thông báo KH khi sổ được cấp; hỗ trợ hoàn thiện giấy tờ bổ sung nếu cần."}]}];
+
+const CHECKLIST=[{phase:"Trước khi đặt căn",icon:"🔍",color:"#1e40af",items:["✅ Xác nhận KH không thuộc blacklist CĐT; không phải đối tượng bị cấm vận / trừng phạt theo PL.","✅ Kiểm tra loại sản phẩm có được bán cho đối tượng KH (VN/NNN/tổ chức).","✅ Kiểm tra tỷ lệ NNN tại tòa/dự án còn room trên PM — xác nhận TRƯỚC khi báo cho KH.","✅ Xác nhận CSBH hiện hành và mức giá chính xác của căn đang áp dụng.","✅ Xin PD theo CNPQ nếu: ưu đãi ngoài CSBH / back CS cũ / PD ngoài / căn đặc biệt.","✅ Chuẩn bị nội dung nộp tiền chuẩn: [Mã căn] + [Tên KH] + 'nộp tiền cọc dự án [tên DA]'.","✅ Đặt căn trên PM đúng thông tin PD (nếu có PD); kiểm soát room NNN, blacklist, cấm vận."]},{phase:"Chuẩn bị hồ sơ KH",icon:"📂",color:"#0369a1",items:["Cá nhân VN (trong nước): CCCD/CMND/HC còn hạn (bản gốc) HOẶC App VNeID định danh mức 2.","Không dùng CCCD gắn chip: bổ sung thêm Xác nhận nơi cư trú bản gốc từ cơ quan có thẩm quyền.","Ủy quyền: (i) Văn bản UQ công chứng (bản gốc / sao y chứng thực) + (ii) CCCD/HC người được UQ bản gốc.","Người VN định cư NN (công dân VN): HC VN còn hạn + đóng dấu nhập cảnh VN.","Người có nguồn gốc VN (định cư NN): HC/giấy tờ đi lại quốc tế + đóng dấu nhập cảnh VN + giấy xác nhận gốc VN theo PL quốc tịch.","Cá nhân NNN: HC nước ngoài còn hạn + đóng dấu nhập cảnh VN + không thuộc diện ưu đãi/miễn trừ ngoại giao.","Tổ chức VN: GCN ĐKKD còn hiệu lực (gốc/sao y) + CCCD đại diện (gốc) + BB họp quyết định mua BĐS (gốc) + UQ (nếu có).","Tổ chức nước ngoài: thêm giấy tờ được phép hoạt động tại VN do CQNN VN cấp (bản gốc / sao y chứng thực)."]},{phase:"Ký hồ sơ — Offline tại sàn",icon:"🏢",color:"#0f766e",items:["Gửi yêu cầu cho PTT tối thiểu 3 tiếng làm việc trước; đính kèm PD, tra soát, thông tin KH đầy đủ.","Hướng dẫn KH đặt lịch trước tại appointment-booking.vinhomes.vn (KH tự thực hiện — người khác không đặt hộ được).","Hướng dẫn KH ký đúng và đủ theo hướng dẫn ký của PTT.","Chụp ảnh CCCD/HC gốc đặt cạnh chữ ký lớn trên hồ sơ (lưu 1 kiểu ảnh).","Bàn giao hồ sơ đã ký về PTT kèm biên bản giao nhận trong tối đa 3 ngày làm việc."]},{phase:"Ký Online (TTOL)",icon:"💻",color:"#7c3aed",items:["⚠️ TTOL chỉ áp dụng cho các căn đang áp dụng CSBH hiện hành — KHÔNG xử lý TTOL cho: PD riêng / back CS cũ / ưu đãi ngoài CSBH.","Xin PD theo CNPQ trước (nội dung PD: mã căn, tên KH, CCCD/HC, loại hồ sơ, tên NVKD chịu trách nhiệm).","🚫 NGHIÊM CẤM dùng SĐT/email KHÔNG phải của KH để tạo tài khoản xác nhận TTOL.","Kiểm tra và đảm bảo tài khoản giao dịch TTOL đúng thông tin chính chủ của KH.","Với căn áp dụng VinClub: kiểm tra và điều chỉnh tài khoản về đúng xếp hạng TRƯỚC khi book căn.","Xác nhận cho KH thực hiện TTOL trên PM; hướng dẫn KH xác nhận trong vòng 24 giờ.","Quá 24h: xin gia hạn theo CNPQ + xác nhận từ Phòng Giá là giá không thay đổi.","Cổng giao dịch KH: https://market.vinhomes.vn/ — Hướng dẫn: Thủ tục online – Vinhomes Wiki."]},{phase:"Ký tại nhà KH (rất hạn chế)",icon:"🏠",color:"#b45309",items:["⚠️ CHỈ áp dụng cho TTĐC/TTKQ và Phụ lục đính kèm bộ HĐ — KHÔNG ký chuyển nhượng/thanh lý tại nhà.","NNN ký HĐMB tại nhà: áp dụng HẠN CHẾ vì khó kiểm soát việc KH đang ở VN.","Xin PD trước theo CNPQ: nội dung rõ mã căn, tên KH, CCCD/HC, loại hồ sơ, bảng chữ ký mẫu, tên NVKD chịu trách nhiệm.","Gửi mail yêu cầu cho PTT kèm PD, ghi rõ ngày giờ KH cần ký.","PTT gửi hồ sơ (bản cứng hoặc email kèm chữ ký điện tử) + hướng dẫn ký + biên bản bàn giao.","NVKD hướng dẫn KH ký đúng; chụp ảnh KH ký cạnh CCCD/HC + Hộ khẩu gốc (nếu có).","NNN ký HĐMB tại nhà: bắt buộc kết nối video call trực tiếp với PTT tại thời điểm ký.","🕐 Bàn giao hồ sơ đã ký về PTT trong tối đa 3 ngày làm việc — quá hạn PTT hủy toàn bộ hồ sơ đã ký."]},{phase:"Đặt lịch với Phòng Thủ tục",icon:"📅",color:"#15803d",items:["Hướng dẫn KH tự đặt lịch tại: https://appointment-booking.vinhomes.vn/","KH tự đăng nhập bằng thông tin đã đăng ký với Vinhomes — người khác KHÔNG thể đặt hộ.","KH chọn mã BĐS → loại dịch vụ → khung giờ → tiến hành đặt lịch.","KH chỉ đặt được 1 lịch hẹn / BĐS — cần hủy lịch cũ TRƯỚC khi đặt lịch mới.","Không chọn được khung giờ → giờ đó đã kín HOẶC dịch vụ chưa mở → liên hệ PTT lấy số thứ tự tại sàn."]}];
+
+const KNOWLEDGE=[{topic:"Điều kiện mua theo từng đối tượng KH",icon:"👤",items:[{name:"Cá nhân VN trong nước",note:"CCCD/CMND/HC còn hạn (bản gốc) HOẶC VNeID định danh mức 2.\nKhông dùng CCCD gắn chip → thêm Xác nhận nơi cư trú bản gốc."},{name:"Người VN định cư NN — là công dân VN",note:"HC VN còn hạn + đóng dấu nhập cảnh VN tại thời điểm ký HĐMB/VBCN."},{name:"Người có nguồn gốc VN (định cư NN)",note:"HC/giấy tờ đi lại quốc tế còn hạn + đóng dấu kiểm chứng nhập cảnh VN + giấy xác nhận gốc VN theo PL quốc tịch."},{name:"Cá nhân nước ngoài (NNN)",note:"HC nước ngoài còn hạn + đóng dấu nhập cảnh VN.\nKHÔNG thuộc diện ưu đãi/miễn trừ ngoại giao/lãnh sự.\nBắt buộc có mặt thực tế tại VN khi ký HĐMB."},{name:"Tổ chức trong nước",note:"GCN ĐKKD còn hiệu lực (bản gốc đối chiếu / sao y chứng thực).\nCCCD đại diện ký HĐ (bản gốc).\nBB họp / quyết định mua BĐS (bản gốc).\nGiấy ủy quyền nếu người đại diện không trực tiếp ký."},{name:"Tổ chức nước ngoài",note:"Thêm: Giấy chứng nhận đầu tư / giấy tờ được phép hoạt động tại VN do CQNN VN cấp có thẩm quyền (bản gốc hoặc sao y chứng thực)."}]},{topic:"Lưu ý đặc biệt — Dự án tại TP.HCM",icon:"📍",items:[{name:"Vợ chồng đồng sở hữu — có 1 bên là NNN/Người VN ĐCNN/Gốc VN",note:"Cả hai vợ chồng phải nhập cảnh hợp pháp vào VN và cùng ký HĐMB/VBCN tại cùng một thời điểm."},{name:"Sở hữu riêng khi đã kết hôn",note:"Khi nộp hồ sơ cấp sổ: phải cung cấp văn bản chứng minh tài sản riêng theo quy định."},{name:"Cấp sổ cho NNN — đang vướng pháp lý",note:"Hiện đang vướng quy định — Luật Đất đai 2013 và dự thảo Luật Đất đai mới đang trình Quốc hội chưa cho phép NNN ghi nhận là người sử dụng đất tại TP.HCM. Cần cập nhật theo diễn biến pháp lý mới nhất."}]},{topic:"Tỷ lệ sở hữu NNN và kiểm soát",icon:"🌏",items:[{name:"Căn hộ chung cư",note:"NNN không sở hữu quá 30% tổng số căn hộ trong một tòa nhà."},{name:"Nhà ở riêng lẻ (biệt thự, nhà liền kề)",note:"NNN không sở hữu quá 250 căn trong một đơn vị hành chính cấp phường/thị trấn."},{name:"Cách kiểm tra — việc của NVKD",note:"Kiểm tra room NNN trên PM TRƯỚC khi xác nhận với KH. Nếu đã đủ tỷ lệ → KH NNN không mua được sản phẩm đó tại tòa/dự án đó."}]},{topic:"So sánh 3 hình thức ký hồ sơ",icon:"✍️",items:[{name:"Ký tại sàn — Ưu tiên",note:"✅ Không hạn chế loại hồ sơ (TTĐC/TTKQ/HĐMB/HĐT/VBCN và mọi Phụ lục).\n✅ PTT kiểm tra trực tiếp — giảm thiểu sai sót.\n✅ Áp dụng được cho mọi đối tượng KH.\nYêu cầu: KH đặt lịch trước qua hệ thống."},{name:"TTOL — Ký online",note:"✅ CHỦ ĐỘNG ngay cả ngày nghỉ/lễ.\n✅ Không cần di chuyển.\n✅ Kiểm tra ưu đãi và giá realtime.\n✅ Có thể chuyển nhượng cọc online (căn không HCCN) trước hạn ký HĐMB.\n⚠️ Chỉ cho TTĐC/TTKQ áp dụng CSBH hiện hành.\n⚠️ Cổng Market chưa xác thực KH → NVKD phải kiểm soát chặt tài khoản.\n⚠️ Sai bước → hủy làm lại hoặc chuyển sang offline.\n⚠️ KHÔNG cho căn có PD riêng/back CS cũ."},{name:"Ký tại nhà — Rất hạn chế",note:"✅ Phù hợp KH khó di chuyển (chỉ TTĐC/TTKQ và Phụ lục).\n⚠️ KHÔNG áp dụng cho chuyển nhượng/thanh lý.\n⚠️ Khó kiểm soát → dễ phát sinh tranh chấp pháp lý.\n⚠️ NNN ký HĐMB tại nhà: cần video call với PTT — cực kỳ hạn chế.\n⚠️ Quá 3 ngày không bàn giao → PTT hủy hồ sơ."}]},{topic:"Lưu ý khi VinClub áp dụng",icon:"💎",items:[{name:"Kiểm tra hạng VinClub trước khi book",note:"Đối với căn áp dụng chính sách VinClub: tài khoản KH phải được ghi nhận đúng hạng thành viên trước khi thực hiện book căn trên PM. NVKD hướng dẫn KH điều chỉnh tài khoản VinClub về đúng xếp hạng trước khi tiến hành."}]},{topic:"Căn cứ pháp lý",icon:"⚖️",items:[{name:"Luật Kinh doanh BĐS 2023",note:"Ngày 28/11/2023 — điều chỉnh toàn bộ hoạt động mua bán, cho thuê, chuyển nhượng BĐS."},{name:"Nghị định 96/2024/NĐ-CP",note:"Ngày 24/7/2024 — hướng dẫn chi tiết thi hành Luật Kinh doanh BĐS 2023."},{name:"Luật Nhà ở 2023",note:"Ngày 27/11/2023 — quy định về sở hữu nhà ở, đặc biệt quyền của NNN và thời hạn sở hữu."},{name:"Nghị định 95/2024/NĐ-CP",note:"Ngày 24/7/2024 — hướng dẫn chi tiết thi hành Luật Nhà ở 2023."},{name:"Quy định nội bộ Vinhomes",note:"Quy định Thủ tục Mua bán BĐS — Công ty Cổ phần Vinhomes (cập nhật theo từng thời kỳ). Hướng dẫn chi tiết xem tại Vinhomes Wiki."}]}];
+
+const BANKS=[{id:"tcb",name:"Techcombank",short:"TCB",color:"#b91c1c",ratio:"70 – 80%",ratioNote:"Giá trị HĐMB bao gồm VAT, tùy từng dự án",term:"Tối đa 35 năm",grace:"Theo thời gian HTLS của CĐT",rates:[{period:"≤ 6 tháng",fixed:"9.5%"},{period:"≤ 12 tháng",fixed:"10.0%"},{period:"≤ 18 tháng",fixed:"10.5%"},{period:"≤ 24 tháng",fixed:"10.5%"},{period:"≤ 30 tháng",fixed:"11.0%"}],floatRate:"Lãi suất tham chiếu + biên độ 3.5%/năm",prepay:["Trong thời gian HTLS của CĐT: 1%","Sau HTLS đến hết tháng thứ 60: 1.5%","Từ tháng thứ 61 trở đi: Miễn phí"],strengths:["Pre-approval: phê duyệt trước khi có HĐMB — không cần đợi ký hợp đồng mới vay được","LTV ≤ 50%: giản lược hồ sơ chứng minh nguồn thu","Phê duyệt qua quy đổi tài sản (STK, TCBond, TCFund) — giảm hồ sơ đáng kể","Chuyển nhượng khoản vay cho F2 vay tiếp — F1 KHÔNG cần tất toán trước khi chuyển nhượng","Ân hạn gốc đến 10 năm (áp dụng gói LTV thấp)","Chấp nhận TSBĐ từ bố/mẹ/con KH (bên thứ 3)"],conditions:["Đối tượng sở hữu BĐS phương án: KH / vợ chồng KH / bố mẹ vợ chồng / con KH","Tuổi: từ đủ 18 tuổi, không quá 70 tuổi tại thời điểm vay","Không có NQH từ 1 ngày trở lên","Tỷ lệ sử dụng hạn mức thẻ tín dụng trung bình 6 tháng ≤ 50%","KH có tối thiểu 1 nguồn thu (thường xuyên hoặc không thường xuyên)","KH có vợ/chồng là NNN: NNN cần ký Cam kết Tài sản riêng","Giải ngân vào tài khoản CĐT/F1","Phương thức trả nợ: dư nợ giảm dần (gốc đều) HOẶC niên kim (gốc+lãi đều nhau)"],contact:"Lầu 4, Tòa West Office Lumiere Riverside, 275 Võ Nguyên Giáp, P. An Khánh, TP.HCM\n34 đầu mối: 3 GĐ Trung tâm, 3 GĐ KHCN, 10 Chuyên gia, 18 Chuyên viên",projects:["Vinhomes Green Paradise (Cần Giờ) — Vịnh Ngọc, Vịnh Tiên (Đã GN)","Vinhomes Green City Long An (Đã GN)","Vinhomes Grand Park (Đã GN)","Vinhomes Hải Vân Bay Đà Nẵng, Phú Quý (Đã GN)","Vinhomes Sài Gòn Park Hóc Môn (Dự kiến GN T6–7)"]},{id:"vpb",name:"VPBank",short:"VPB",color:"#166534",ratio:"Tối đa 70%",ratioNote:"HĐMB (nhà ở). 100% nếu TSBĐ là BĐS/xe khác đã có GCN",term:"Tối đa 25 năm",grace:"Tối đa 36 tháng",rates:[],floatRate:"Báo giá theo từng thời kỳ — liên hệ đầu mối",prepay:["Gói 12T: Năm 2–3: 2.5% | Năm 4–5: 1.5% | Từ năm 6: Miễn","Gói 18T: Năm 2–3: 2.5% | Năm 4–5: 1.5% | Từ năm 6: Miễn","Gói 24T: Năm 3: 2.5% | Năm 4–5: 1.5% | Từ năm 6: Miễn","Gói 30T: Năm 3–4: 2.5% | Năm 5: 1.5% | Từ năm 6: Miễn"],strengths:["Định giá TSBĐ theo giá trị HĐMB — KHÔNG định giá lại tài sản (tiết kiệm chi phí KH)","Chứng minh thu nhập rất linh hoạt: lương, HKD, cho thuê TS, góp vốn DN, hoặc tổng TS tích lũy","Chấp nhận KH VN có vợ/chồng là NNN","LTV STK: có HTLS 100%; không HTLS 95%. LTV Trái phiếu: tùy từng loại","Chấp nhận TSBĐ bên thứ 3 là bố/mẹ/con KH","Không bắt buộc KH sinh sống tại địa bàn có trụ sở VPBank"],conditions:["Quốc tịch VN (hoặc KH VN có vợ/chồng là NNN)","Từ đủ 18 tuổi, không quá 75 tuổi tại thời điểm hết hạn vay","KH có nơi ở tại tỉnh/TP có VPBank HOẶC TSBĐ tại tỉnh/TP có trụ sở VPBank","Không có nợ nhóm 2 tại thời điểm trình hồ sơ","Trong 12 tháng gần nhất: không có nợ nhóm 2","Trong 36 tháng gần nhất: không có nợ nhóm 3 trở lên","Chủ sở hữu TSBĐ: cũng không quá 75 tuổi tại thời điểm hết hạn vay"],contact:"Trung tâm NDA Miền Nam — nhiều chi nhánh tại TP.HCM\n4 TPKD và 11 Cán bộ tín dụng hỗ trợ trực tiếp dự án",projects:["Vinhomes Saigon Park (Hóc Môn) và các dự án Vinhomes khác"]},{id:"mb",name:"MB Bank",short:"MB",color:"#1e3a8a",ratio:"Lên đến 70%",ratioNote:"Giá trị HĐMB bao gồm VAT",term:"Lên đến 420 tháng (35 năm)",grace:"Lên đến 48 tháng",rates:[{period:"Ưu đãi 12 tháng",fixed:"9.5%"},{period:"Ưu đãi 18 tháng",fixed:"10.0%"},{period:"Ưu đãi 24 tháng",fixed:"10.0%"},{period:"Ưu đãi 30 tháng",fixed:"10.5%"}],floatRate:"Lãi suất tham chiếu + biên độ 3.5%/năm",prepay:["Trong thời gian cố định lãi suất: 1.5%","Gói 12T — Năm 2–3: 2.5% | Năm 4–5: 1.5%","Gói 18T — Năm 2–3: 2.5% | Năm 4–5: 1.5%","Gói 24T — Năm 3: 2.5% | Năm 4–5: 1.5%","Gói 30T — Năm 3–4: 2.5% | Năm 5: 1.5%"],strengths:["Quy trình nhanh: phản hồi hồ sơ 2 giờ → phê duyệt 3 ngày → soạn VKTD 2 ngày → giải ngân 2 ngày","Hồ sơ linh hoạt, thủ tục đơn giản","Ân hạn gốc lên đến 48 tháng","3 chi nhánh TP.HCM: Tân Định, Bắc Sài Gòn, Bến Thành"],conditions:["Đối tượng sở hữu: KH / vợ chồng KH / bố mẹ vợ chồng / con KH","Mục đích vay: thanh toán tiền theo tiến độ HĐMB","Giải ngân vào tài khoản CĐT/F1","Trả nợ: dư nợ giảm dần (gốc đều) HOẶC niên kim (gốc+lãi đều nhau)"],contact:"MB Tân Định: 192 Trần Quang Khải, P. Tân Định\nMB Bắc Sài Gòn: 03 Nguyễn Oanh, P. Gò Vấp\nMB Bến Thành: 414C–414D Nguyễn Thị Minh Khai, P. Bàn Cờ\n⭐ Lãi suất hiệu lực từ 15/05/2026",projects:["Vinhomes Saigon Park (Hóc Môn) và các DA Vinhomes tại TP.HCM"]},{id:"bidv",name:"BIDV – CN Chợ Lớn",short:"BIDV",color:"#1d4ed8",ratio:"Lên đến 70%",ratioNote:"HĐMB nhà ở. 100% nếu TSBĐ là BĐS khác đã có GCN",term:"Tối đa 35 năm",grace:"Thường ≤ 36 tháng; tối đa 60 tháng nếu bổ sung BĐS 20% giá trị khoản vay",rates:[{period:"6 tháng đầu",fixed:"9.5%/năm"},{period:"12 tháng đầu",fixed:"10.0%/năm"},{period:"18 tháng đầu",fixed:"10.5%/năm"},{period:"24 tháng đầu",fixed:"11.0%/năm"},{period:"30 tháng đầu",fixed:"11.5%/năm"},{period:"36 tháng đầu",fixed:"12.0%/năm"}],floatRate:"Lãi suất theo quy định BIDV từng thời kỳ",prepay:["Trong 24 tháng đầu: 1%/năm trên số tiền trả trước hạn","Tháng 25–60 (36 tháng tiếp theo): 0.5%/năm","Từ năm thứ 4 trở đi: Miễn phí"],strengths:["Gói Premier Home: phê duyệt trong 24 giờ — nhanh nhất thị trường","Linh hoạt chứng minh năng lực tài chính bằng BĐS sở hữu, STK (không cần chứng minh lương)","LTV STK có HTLS: 100%; LTV STK không HTLS: 95%","Tặng tài khoản số đẹp trị giá đến 50 triệu đồng","Kết nối nhóm Zalo hỗ trợ riêng: BIDV – VIN HÓC MÔN 2"],conditions:["LTV TSBĐ là BĐS khác đã có GCN: tối đa 80%","Lịch sử tín dụng sạch — không có nợ xấu"],contact:"Tầng trệt, 49 Kinh Dương Vương, P. Phú Lâm, Q. 6, TP.HCM\n☎ 0979 491 633 – Phạm Nguyễn Luy Uyên (TP KHCN 2)\n☎ 0917 070 106 – Mr Đậu Dũng\n☎ 0907 719 187 – Mrs Ngọc Giàu",projects:["Vinhomes Saigon Park Hóc Môn"]},{id:"vtb",name:"VietinBank",short:"VTB",color:"#b45309",ratio:"Lên đến 80%",ratioNote:"Giá trị HĐMB — cao nhất trong các NH liên kết",term:"35 năm (căn hộ) · 25 năm (Shophouse)",grace:"Tối đa 36 tháng theo thời gian HTLS",rates:[{period:"Cố định 12T – Căn hộ",fixed:"10.5%/năm"},{period:"Cố định 18T – Căn hộ",fixed:"10.5%/năm"},{period:"Cố định 24T – Căn hộ",fixed:"11.0%/năm"},{period:"Cố định 12T – Shophouse",fixed:"11.0%/năm"},{period:"Cố định 18T – Shophouse",fixed:"11.0%/năm"},{period:"Cố định 24T – Shophouse",fixed:"11.5%/năm"}],floatRate:"Lãi suất tiết kiệm 12 tháng + 3.5%/năm",prepay:["⭐ Trong thời gian HTLS của CĐT: 0% — MIỄN PHÍ HOÀN TOÀN","Năm 1–2 sau HTLS: 2%","Năm 3: 1.5%","Năm 4–5: 1%","Từ năm 6 trở đi: Miễn phí","★ KH tài chính tốt / dòng tiền tốt: giảm 50% phí TNTH"],strengths:["Tỷ lệ vay cao nhất: 80% HĐMB — vượt trội so với các NH còn lại (70%)","Phê duyệt trong 48 giờ làm việc","MIỄN PHÍ 100% phí TNTH trong toàn bộ thời gian HTLS","Giải pháp Tái tài trợ (Refinancing): LS từ 10.5%/năm","Tái tài trợ: hạn mức = dư nợ gốc hiện tại (tối đa 75% TSBĐ), thời hạn 35/25 năm","Đặc quyền VietinBank Premium: tài khoản số đẹp đến 50 triệu, golf miễn phí (Elite/Diamond)","Thu nhập đa dạng: lương, cho thuê, HKD, góp vốn DN, kinh doanh online, thu nhập khó chứng minh","47 Chuyên viên tín dụng đặc nhiệm trực chiến 24/7 hỗ trợ dự án"],conditions:["Công dân VN (hoặc vợ/chồng có quốc tịch VN)","Từ đủ 18 tuổi, không quá 70 tuổi tại thời điểm đáo hạn","Địa bàn: KH sinh sống tại tỉnh/TP có VietinBank hoặc tỉnh/TP liền kề","Lịch sử TD: không nợ nhóm 2 trong 12 tháng gần nhất","Lịch sử TD: không nợ xấu trong 5 năm gần nhất"],contact:"9 Ban Lãnh đạo + 47 Chuyên viên Tín dụng Đặc nhiệm tại TP.HCM\n(Xem danh sách đầy đủ trong tài liệu VietinBank trang 83–84)",projects:["Vinhomes Saigon Park Hóc Môn","Vinhomes Green City Long An","Vinhomes Grand Park","Vinhomes Green Paradise (Cần Giờ)"]},{id:"mbv",name:"MBV – Modern Bank of Vietnam",short:"MBV",color:"#991b1b",ratio:"Tối đa 70%",ratioNote:"Giá trị HĐMB",term:"Tối đa 420 tháng (35 năm)",grace:"Tối đa 60 tháng — dài nhất trong các NH liên kết",rates:[],floatRate:"Liên hệ đầu mối MBV để cập nhật",prepay:["Theo quy định MBV từng thời kỳ — liên hệ đầu mối để xác nhận"],strengths:["Thành viên hệ sinh thái MB Group — 100% vốn từ MB Bank, kế thừa từ OceanBank","Ân hạn gốc 60 tháng — DÀI NHẤT trong tất cả các NH liên kết Vinhomes","Chứng minh thu nhập linh hoạt: lương, HKD, cho thuê TS","Phê duyệt theo Tổng TS tích lũy: Tổng TS ≥ 200% giá trị vay (nguồn thu kê khai)","MBV Bắc Sài Gòn khai trương 26/03/2026 tại 672A2 Phan Văn Trị, Gò Vấp — gần DA Hóc Môn","Chuyển đổi số mạnh — thủ tục nhanh gọn, hiện đại"],conditions:["Không có lịch sử nợ quá hạn và nợ xấu tại các TCTD","TSBĐ: tài sản độc lập theo quy định MBV HOẶC quyền phát sinh từ HĐMB","Nguồn thu thông thường: lương / HKD (≥12 tháng hoạt động) / cho thuê TS","Tổng TS tích lũy (nguồn thu kê khai): Tổng tài sản ≥ 200% giá trị vay","Phương thức trả nợ: gốc đều sau ân hạn, lãi trả hàng tháng"],contact:"672A2 Phan Văn Trị, Phường Gò Vấp, TP.HCM\n☎ 097.529.6633 – Mai Kim Dân (GĐ Chi nhánh)\n☎ 058.662.3979 – Võ Mỹ Oanh (TP Kinh doanh)",projects:["Vinhomes Saigon Park (Hóc Môn)"]}];
+
+const LOAN_DOCS=[{title:"I. Hồ sơ Nhân thân",color:"#1e40af",items:["CCCD / CMND / HC / Giấy CM quân nhân / Sỹ quan còn hạn (bản gốc đối chiếu hoặc sao y)","Giấy hẹn cấp CCCD mới (chấp nhận thay thế tạm thời)","Xác nhận cư trú: Sổ hộ khẩu / Sổ tạm trú / App VNeID / Xác nhận cơ quan công tác","Đã kết hôn: Giấy đăng ký kết hôn","Độc thân: Xác nhận tình trạng hôn nhân + Cam kết tình trạng hôn nhân","Đã từng ly hôn: thêm Quyết định ly hôn","★ Thu thập cho: KH + vợ/chồng KH + người đồng trả nợ (nếu có) + chủ TSBĐ"]},{title:"II. Hồ sơ Chứng minh Năng lực Tài chính",color:"#0f766e",items:["TN từ LƯƠNG: HĐLĐ / QĐ bổ nhiệm / QĐ tăng lương / Sổ BHXH + Sao kê TK lương ≥ 3 tháng","TN từ CHO THUÊ TS: GCN quyền sở hữu + HĐ cho thuê + Sao kê TK nhận tiền thuê","TN từ HỘ KD: ĐKKD / Xác nhận KD địa phương + Sao kê TK + Chứng từ mua bán / Hóa đơn VAT","TN từ DOANH NGHIỆP (góp vốn): GCN ĐKKD + Điều lệ/Sổ cổ đông + BCTC + Tờ khai VAT + Sao kê TK DN + BB HĐTV trích lợi nhuận trả nợ","TN từ QUY ĐỔI TS — BĐS: GCN (Sổ đỏ/Sổ hồng) + Trích lục bản đồ địa chính","TN từ QUY ĐỔI TS — Xe ô tô: Cavet + Đăng ký + Đăng kiểm + Bảo hiểm","TN từ QUY ĐỔI TS — Tài chính: STK / Chứng chỉ tiền gửi / TCBond (GCN sở hữu + HĐMB + Sao kê TP) / TCFund (GCN + HĐMB + Sao kê Fund)"]},{title:"III. Hồ sơ Thông tin Tín dụng tại TCTD khác",color:"#7c3aed",items:["HĐTD / KUNN các khoản vay đang còn dư nợ","Xác nhận nghĩa vụ trả nợ hàng tháng","Sao kê / Sổ phụ tài khoản vay","Xác nhận tất toán khoản vay (nếu vừa tất toán)"]},{title:"IV. Hồ sơ Phương án Vay vốn",color:"#b45309",items:["Đề nghị vay vốn của KH","TTĐC / TTKQ / HĐMB / VBCN (tùy giai đoạn giao dịch hiện tại)"]},{title:"V. Hồ sơ TSBĐ",color:"#15803d",items:["HĐMB nhà dự án / VBCN / TTĐC kèm chứng từ thanh toán đi kèm","GCN quyền sử dụng đất (Sổ đỏ/Sổ hồng) nếu thế chấp BĐS khác","STK / Chứng chỉ tiền gửi / Trái phiếu / TCFund nếu bổ sung TSBĐ bằng tài sản tài chính"]}];
+
+const FAQ=[{tag:"Giao dịch",q:"Quy trình tổng quát từ khi KH quyết định mua đến khi nhận sổ là gì?",a:"6 bước: (1) Đặt căn → nộp tiền cọc. (2) Ký TTĐC/TTKQ — xác nhận giao dịch. (3) Ký HĐMB/HĐT/VBCN — phát sinh quyền sở hữu. (4) Hỗ trợ vay NH nếu cần. (5) Chuyển nhượng HĐ nếu có nhu cầu. (6) Bàn giao → Tất toán → Cấp Sổ đỏ/Sổ hồng."},{tag:"Giao dịch",q:"KH muốn đặt căn ngay nhưng chưa đủ tiền — có cách nào không?",a:"Tư vấn vay ngân hàng liên kết. Techcombank có chính sách phê duyệt trước (pre-approval) — có thể phê duyệt khoản vay trước khi KH ký HĐMB, giúp KH chủ động tài chính ngay từ giai đoạn đặt cọc."},{tag:"Giao dịch",q:"Nội dung nộp tiền cọc phải ghi như thế nào?",a:"Chuẩn theo CĐT: [Mã căn] + [Tên KH] + 'nộp tiền cọc dự án [tên dự án]'. Ví dụ: 'S1-05.07 NGUYEN VAN A nộp tiền cọc dự án Vinhomes Saigon Park'. Sai nội dung có thể gây khó khăn trong tra soát và xác nhận thanh toán."},{tag:"Giao dịch",q:"PTT và PKD phối hợp như thế nào khi KH ký hồ sơ?",a:"PKD: (i) đặt căn trên PM, (ii) hướng dẫn KH ký (online hoặc offline), (iii) cung cấp đầy đủ tra soát và PD cần thiết, (iv) hướng dẫn KH chuẩn bị giấy tờ. PTT: kiểm tra thông tin (giấy tờ, tình trạng thanh toán, CSBH, thông tin PM), soạn hồ sơ cho KH ký, lập Đề nghị thanh toán đợt tiếp theo."},{tag:"Đối tượng",q:"KH là người nước ngoài — có mua được BĐS Vinhomes không?",a:"Có, nhưng cần đủ 3 điều kiện: (1) Loại sản phẩm được bán NNN (chỉ căn hộ CC và nhà ở tháp tầng; OT/DTTM không bán NNN); (2) Tỷ lệ NNN tại tòa/dự án còn room (≤30% tổng số căn/tòa); (3) KH không thuộc đối tượng bị cấm vận/trừng phạt. Khi ký HĐMB: HC phải có đóng dấu nhập cảnh VN và KH phải có mặt thực tế tại VN."},{tag:"Đối tượng",q:"NNN mua căn hộ thì sở hữu bao lâu?",a:"Cá nhân NNN: tối đa 50 năm kể từ ngày cấp GCN quyền sở hữu. Tổ chức NNN: không vượt quá thời hạn hoạt động của tổ chức tại VN. Lưu ý: hiện tại TP.HCM đang vướng quy định cấp sổ cho NNN nên cần cập nhật diễn biến pháp lý mới nhất trước khi tư vấn."},{tag:"Đối tượng",q:"Người Việt Nam định cư ở nước ngoài mua nhà cần gì?",a:"Nếu là công dân VN: HC VN còn hạn + đóng dấu nhập cảnh VN tại thời điểm ký HĐMB/VBCN. Nếu là người gốc VN: HC/giấy tờ đi lại quốc tế + đóng dấu nhập cảnh VN + giấy tờ xác nhận gốc VN theo PL quốc tịch."},{tag:"Đối tượng",q:"Tổ chức muốn mua BĐS — cần hồ sơ gì?",a:"GCN ĐKKD còn hiệu lực (gốc đối chiếu / sao y chứng thực) + CCCD người đại diện ký HĐ (gốc) + BB họp/quyết định mua BĐS (gốc) + Giấy UQ (nếu người đại diện không trực tiếp ký). Tổ chức NN: thêm giấy tờ được phép hoạt động tại VN do CQNN VN cấp."},{tag:"Đối tượng",q:"Vợ chồng muốn đứng tên đồng sở hữu — cần lưu ý gì?",a:"Cả hai phải cùng ký HĐMB. Nếu một bên là NNN/người VN ĐCNN tại dự án TP.HCM: cả hai phải nhập cảnh hợp pháp và cùng ký tại thời điểm ký. Nếu muốn đứng tên sổ sở hữu riêng khi đã kết hôn: cần văn bản chứng minh tài sản riêng khi nộp hồ sơ cấp sổ."},{tag:"Hồ sơ",q:"KH không dùng CCCD gắn chip — cần bổ sung gì?",a:"Bổ sung thêm Xác nhận nơi cư trú bản gốc từ cơ quan nhà nước có thẩm quyền (UBND phường/xã nơi KH đăng ký hộ khẩu thường trú hoặc nơi tạm trú)."},{tag:"Hồ sơ",q:"KH muốn ủy quyền cho người khác ký hợp đồng?",a:"Cần: (i) Văn bản UQ công chứng — bản gốc hoặc sao y chứng thực; (ii) CCCD/HC của người được ủy quyền còn hiệu lực — bản gốc."},{tag:"Hồ sơ",q:"KH bị mất CCCD chưa làm lại kịp — có ký được không?",a:"Được — dùng Giấy hẹn cấp CCCD mới từ cơ quan công an. Giấy hẹn được chấp nhận thay thế tạm thời. Một số NH liên kết cũng chấp nhận giấy hẹn trong hồ sơ vay."},{tag:"Hồ sơ",q:"Hồ sơ ký tại nhà đã bàn giao nhưng bị trả lại vì sai — xử lý thế nào?",a:"NVKD phải hướng dẫn KH ký lại đúng và bàn giao về PTT trong hạn 3 ngày tính từ ngày nhận hồ sơ lần đầu. Nếu quá 3 ngày, PTT sẽ hủy và phải làm lại toàn bộ quy trình từ đầu (kể cả xin PD mới)."},{tag:"TTOL",q:"TTOL là gì và áp dụng cho trường hợp nào?",a:"TTOL (Thủ tục Online) là hình thức đặt cọc qua cổng giao dịch market.vinhomes.vn. Chỉ áp dụng cho TTĐC/TTKQ, với các căn đang áp dụng CSBH hiện hành (không áp dụng cho căn có PD riêng, back CS cũ, ưu đãi ngoài CSBH)."},{tag:"TTOL",q:"NVKD dùng SĐT/email của mình (không phải KH) để đặt hộ — có vấn đề gì không?",a:"Vi phạm nghiêm trọng. Tài khoản giao dịch TTOL phải là thông tin chính chủ KH. Hậu quả: rủi ro pháp lý nếu xác nhận đặt cọc nhưng vi phạm → thanh lý → PKD và Đại lý chịu toàn bộ trách nhiệm. Phải bổ sung chế tài phạt vào HĐ môi giới nếu vi phạm."},{tag:"TTOL",q:"KH chưa xác nhận TTOL trong 24h — phải làm gì?",a:"NVKD xin gia hạn theo CNPQ; gửi PTT kèm xác nhận từ Phòng Giá rằng giá căn hộ không thay đổi giữa ngày hiệu lực cũ và mới theo PD. Nếu không xin gia hạn kịp, cần hủy và thực hiện lại."},{tag:"TTOL",q:"TTOL có những ưu điểm và bất cập gì so với ký offline?",a:"Ưu điểm: chủ động cả ngày nghỉ/lễ, không cần di chuyển, kiểm tra ưu đãi và giá realtime, có thể chuyển nhượng cọc online (căn không HCCN) trước hạn ký HĐMB. Bất cập: cổng Market chưa xác thực KH → NVKD phải kiểm soát chặt tài khoản; thao tác sai phải hủy làm lại từ đầu (hoặc chuyển sang offline); chưa có công cụ cho phép bộ phận trả về để KH xử lý lại bước sai."},{tag:"Vay vốn",q:"Vay được tối đa bao nhiêu % và lãi suất bao nhiêu?",a:"Tỷ lệ vay: 70% (TCB, VPB, MB, BIDV, MBV) hoặc 80% (VietinBank). Lãi suất cố định giai đoạn đầu: 9.5%–12%/năm (tùy NH và kỳ hạn). Sau kỳ cố định: lãi suất tham chiếu + biên độ 3.5%/năm. Luôn giới thiệu KH gặp chuyên viên NH để có báo giá cập nhật nhất."},{tag:"Vay vốn",q:"KH không có hợp đồng lao động, không chứng minh được thu nhập — vay được không?",a:"Được. Các NH liên kết chấp nhận chứng minh thu nhập linh hoạt: HKD, cho thuê TS, góp vốn DN, kinh doanh online, hoặc chứng minh bằng Tổng tài sản tích lũy (Tổng TS ≥ 200% giá trị vay qua MBV; LTV thấp ≤50% qua TCB; BIDV qua STK/BĐS). VietinBank còn chấp nhận thu nhập khó chứng minh."},{tag:"Vay vốn",q:"KH bị nợ xấu trong quá khứ — có vay được không?",a:"Điều kiện sạch tín dụng: TCB — không NQH từ 1 ngày; VPBank — không nợ nhóm 2 trong 12T, không nợ nhóm 3+ trong 36T; VietinBank — không nợ nhóm 2 trong 12T, không nợ xấu trong 5 năm. Hướng xử lý: KH tất toán hết nợ xấu, chờ thời gian reset trên CIC. Trong thời gian chờ: có thể thế chấp STK hoặc TS tích lũy qua MBV/TCB gói LTV thấp."},{tag:"Vay vốn",q:"Phí trả nợ trước hạn tính như thế nào?",a:"Mỗi NH có cấu trúc khác nhau. Ưu đãi nhất: VietinBank miễn phí 100% trong toàn bộ thời gian HTLS. BIDV: miễn từ năm 4. TCB: miễn từ tháng 61. Mức phí thường 1–2% trong 1–3 năm đầu sau HTLS."},{tag:"Vay vốn",q:"Ngân hàng nào phù hợp nhất cho từng tình huống KH?",a:"Cần vay nhiều nhất (>70%): VietinBank (80%). Cần ân hạn dài: MBV (60 tháng). Cần phê duyệt siêu nhanh: BIDV (24h) hoặc VietinBank (48h). Khó chứng minh thu nhập: MBV/TCB LTV thấp/VietinBank. Muốn miễn phí TNTH trong HTLS: VietinBank (0%). Chuyển nhượng HĐ mà bên bán vẫn đang vay: TCB (F2 vay tiếp, F1 không cần tất toán)."},{tag:"Vay vốn",q:"Chuyển nhượng khoản vay cho F2 qua TCB thực hiện như thế nào?",a:"Đây là tính năng đặc biệt của Techcombank — F2 (người nhận chuyển nhượng) tiếp tục vay và trả nợ từ khoản vay hiện tại của F1, F1 không cần tất toán trước. Liên hệ chuyên viên TCB để được hướng dẫn chi tiết điều kiện và quy trình."},{tag:"Vay vốn",q:"KH đang vay NH khác, có chuyển sang NH liên kết Vinhomes được không?",a:"Được — VietinBank có sản phẩm Tái tài trợ (Refinancing) với LS từ 10.5%/năm. Hạn mức bằng dư nợ gốc hiện tại (tối đa 75% giá trị TSBĐ). Thời hạn: 35 năm (căn hộ) / 25 năm (Shophouse). Liên hệ đầu mối VietinBank để thẩm định."},{tag:"Hợp đồng",q:"HĐMB, TTĐC, TTKQ khác nhau như thế nào?",a:"TTĐC (Thỏa thuận đặt cọc): văn bản ghi nhận KH đặt tiền cọc để giữ căn, trước khi ký HĐMB chính thức. TTKQ (Thỏa thuận ký quỹ): tương tự TTĐC nhưng áp dụng cho trường hợp ký quỹ. HĐMB (Hợp đồng mua bán): hợp đồng chính thức phát sinh quyền sở hữu, có hiệu lực pháp lý cao hơn."},{tag:"Hợp đồng",q:"KH muốn thay đổi tên người đứng sổ sau khi đã ký HĐMB?",a:"Phải thực hiện thủ tục chuyển nhượng HĐMB theo quy định PL và chính sách CĐT. KHÔNG thực hiện chuyển nhượng tại nhà. Liên hệ PTT để được hướng dẫn điều kiện, hồ sơ và nghĩa vụ tài chính (thuế chuyển nhượng, phí)."},{tag:"Hợp đồng",q:"KH muốn chuyển nhượng hợp đồng nhưng đang thế chấp NH — có được không?",a:"Được, nhưng phức tạp hơn. Phải giải chấp hoặc NH (ví dụ TCB) hỗ trợ chuyển giao khoản vay cho F2. Liên hệ PTT và NH đang thế chấp để được tư vấn quy trình phù hợp."},{tag:"Lịch hẹn",q:"KH đặt lịch PTT nhưng không đến được — làm thế nào?",a:"Hủy lịch qua hệ thống appointment-booking.vinhomes.vn (KH tự hủy). Cần hủy lịch cũ trước khi đặt lịch mới. Nếu không hủy được qua hệ thống: liên hệ PTT để hủy thủ công."},{tag:"Lịch hẹn",q:"KH chọn dịch vụ trên hệ thống nhưng không chọn được khung giờ — lý do gì?",a:"Có 2 lý do: (1) Khung giờ KH muốn đặt đã kín lịch — chọn giờ khác; (2) Loại dịch vụ cần chưa được mở trong hệ thống — liên hệ PTT để được lấy số thứ tự tại sàn trực tiếp."},{tag:"Lịch hẹn",q:"Người khác (NVKD, người thân) có thể đặt lịch hộ KH được không?",a:"KHÔNG. KH phải tự đặt lịch bằng tài khoản đã đăng ký với Vinhomes. Hệ thống không cho phép người khác đặt hộ."},{tag:"Sản phẩm",q:"Sự khác biệt giữa Căn hộ CC, Office-tel và DTTM là gì?",a:"Căn hộ CC: để ở, người VN sở hữu lâu dài, NNN sở hữu 50 năm. Office-tel: văn phòng có lưu trú, KHÔNG mua được (chỉ DNNN thuê), thời hạn 50 năm. DTTM: thương mại dịch vụ, KHÔNG mua được (chỉ DNNN thuê), thời hạn như OT."},{tag:"Sản phẩm",q:"Biệt thự/Condotel có thời hạn sở hữu bao lâu?",a:"70 năm kể từ ngày Nhà nước giao đất / cho thuê đất cho CĐT (Vinhomes). Sau 70 năm có thể gia hạn theo quy định PL tại thời điểm đó."},{tag:"Sản phẩm",q:"NNN có mua được Biệt thự/Condotel/Shop/Minihotel không?",a:"DNNN CÓ chức năng KD BĐS: được mua. DNNN KHÔNG có chức năng KD BĐS: chỉ được thuê. NNN cá nhân: KHÔNG được tham gia CTCT — chỉ mua để sử dụng đúng công năng theo Dự án."}];
+
+const TAG_COLORS={"Giao dịch":{bg:"#dbeafe",text:"#1e40af"},"Đối tượng":{bg:"#dcfce7",text:"#14532d"},"Hồ sơ":{bg:"#fef9c3",text:"#713f12"},"TTOL":{bg:"#ede9fe",text:"#4c1d95"},"Vay vốn":{bg:"#fce7f3",text:"#831843"},"Hợp đồng":{bg:"#fee2e2",text:"#7f1d1d"},"Lịch hẹn":{bg:"#d1fae5",text:"#065f46"},"Sản phẩm":{bg:"#fef3c7",text:"#92400e"}};
+
+const ACTOR_STYLE={"KH":{bg:"#fef3c7",text:"#92400e"},"NVKD":{bg:"#dbeafe",text:"#1e3a8a"},"PTT":{bg:"#dcfce7",text:"#14532d"},"NH":{bg:"#f3e8ff",text:"#581c87"},"CĐT":{bg:"#fee2e2",text:"#7f1d1d"},"KH+NVKD":{bg:"#e0e7ff",text:"#3730a3"},"CĐT/PTT":{bg:"#ecfdf5",text:"#065f46"},"KH+F2+PTT":{bg:"#fef9c3",text:"#713f12"},"KH (F1)":{bg:"#fef3c7",text:"#92400e"}};
+
+const TABS=[{id:"overview",icon:"🏢",label:"Tổng quan"},{id:"products",icon:"🏗️",label:"Sản phẩm"},{id:"process",icon:"🔄",label:"Quy trình"},{id:"checklist",icon:"📋",label:"Checklist"},{id:"knowledge",icon:"📚",label:"Kiến thức"},{id:"banks",icon:"🏦",label:"Ngân hàng"},{id:"faq",icon:"💬",label:"FAQ"}];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let state={tab:"overview",srch:"",openAbbr:false,openProcess:null,openCL:null,openK:null,openF:null,openB:null,openPR:null,openLD:null,faqTag:"Tất cả"};
+
+function setState(patch){Object.assign(state,patch);render();}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function nl2br(s){return esc(s).replace(/\n/g,"<br>");}
+function pill(text,bg,color,size){return`<span class="pill" style="background:${bg};color:${color};font-size:${size||11}px">${esc(text)}</span>`;}
+function boolVal(v){if(v===true)return'<span style="color:#15803d;font-weight:700">✅ Được</span>';if(v===false)return'<span style="color:#dc2626;font-weight:700">❌ Không</span>';return`<span style="font-weight:600;color:#1e293b">${nl2br(v)}</span>`;}
+function actorBadge(actor){const s=ACTOR_STYLE[actor]||{bg:"#f1f5f9",text:"#475569"};return`<div class="actor-badge" style="background:${s.bg};color:${s.text}">${esc(actor)}</div>`;}
+function infoBox(content,bg,border){return`<div class="info-box" style="background:${bg};border:1.5px solid ${border};border-left:4px solid ${border}">${content}</div>`;}
+function accBtn(id,title,isOpen,badge,color,sub){
+  return`<button class="acc-btn${isOpen?' open':''}" onclick="toggle('${id}')" style="border-radius:${isOpen?'12px 12px 0 0':'12px'}">
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+        ${badge?`<span class="acc-badge" style="background:${color||'#1e3a8a'}">${esc(badge)}</span>`:''}
+        <span class="acc-title">${title}</span>
+      </div>
+      ${sub?`<div class="acc-sub">${esc(sub)}</div>`:''}
+    </div>
+    <span class="acc-arrow">${isOpen?'▲':'▼'}</span>
+  </button>`;
+}
+
+function toggle(id){
+  const [key,idx]=id.split(':');
+  const i=idx!==undefined?parseInt(idx):null;
+  const k={'proc':'openProcess','cl':'openCL','k':'openK','f':'openF','b':'openB','pr':'openPR','ld':'openLD'}[key];
+  if(k){setState({[k]:state[k]===i?null:i});}
+  else if(key==='abbr'){setState({openAbbr:!state.openAbbr});}
+}
+function setTab(t){setState({tab:t,srch:'',openProcess:null,openCL:null,openK:null,openF:null,openB:null,openPR:null,openLD:null});document.getElementById('searchInput').value='';}
+function setFaqTag(t){setState({faqTag:t});}
+function clearSearch(){document.getElementById('searchInput').value='';setState({srch:''});}
+function navTo(sec,idx){
+  document.getElementById('searchInput').value='';
+  const patch={tab:sec,srch:''};
+  if(sec==='faq')patch.openF=idx;
+  if(sec==='banks')patch.openB=idx;
+  if(sec==='knowledge')patch.openK=idx;
+  if(sec==='process')patch.openProcess=idx;
+  if(sec==='checklist')patch.openCL=idx;
+  if(sec==='products')patch.openPR=idx;
+  setState(patch);
+  setTimeout(()=>{const el=document.querySelector('.acc-btn.open');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+}
+
+// ═══════════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════════
+function getSearchResults(q){
+  if(!q.trim())return null;
+  const ql=q.toLowerCase();
+  const res=[];
+  FAQ.forEach((f,i)=>{if(f.q.toLowerCase().includes(ql)||f.a.toLowerCase().includes(ql))res.push({sec:"faq",idx:i,label:f.tag,title:f.q});});
+  BANKS.forEach((b,i)=>{if(b.name.toLowerCase().includes(ql)||b.strengths.join(' ').toLowerCase().includes(ql))res.push({sec:"banks",idx:i,label:"Ngân hàng",title:b.name});});
+  KNOWLEDGE.forEach((k,i)=>{if(k.topic.toLowerCase().includes(ql)||k.items.map(it=>it.name+' '+it.note).join(' ').toLowerCase().includes(ql))res.push({sec:"knowledge",idx:i,label:"Kiến thức",title:k.topic});});
+  PROCESS.forEach((p,i)=>{if(p.title.toLowerCase().includes(ql)||p.steps.map(s=>s.action).join(' ').toLowerCase().includes(ql))res.push({sec:"process",idx:i,label:"Quy trình",title:`${p.phase}: ${p.title}`});});
+  CHECKLIST.forEach((c,i)=>{if(c.phase.toLowerCase().includes(ql)||c.items.join(' ').toLowerCase().includes(ql))res.push({sec:"checklist",idx:i,label:"Checklist",title:c.phase});});
+  PRODUCTS.forEach((p,i)=>{if(p.name.toLowerCase().includes(ql)||p.purpose.toLowerCase().includes(ql))res.push({sec:"products",idx:i,label:"Sản phẩm",title:p.name});});
+  return res;
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER SECTIONS
+// ═══════════════════════════════════════════════════════
+function renderTabBar(){
+  document.getElementById('tabBar').innerHTML=TABS.map(t=>`<button class="tab-btn${state.tab===t.id?' active':''}" onclick="setTab('${t.id}')">${t.icon} ${t.label}</button>`).join('');
+}
+
+function renderSearchClear(){document.getElementById('searchClear').style.display=state.srch?'':'none';}
+
+function renderSearch(results){
+  const tc=TAG_COLORS;
+  return`<div>
+    <div style="font-weight:700;color:#475569;font-size:12px;margin-bottom:8px">🔍 ${results.length} kết quả cho "${esc(state.srch)}"</div>
+    ${results.length===0
+      ?infoBox('😕 Không tìm thấy. Thử từ khóa khác hoặc duyệt theo tab.','#f8fafc','#e2e8f0')
+      :results.map((r,i)=>`<div class="search-result" onclick="navTo('${r.sec}',${r.idx})">
+          ${pill(r.label,(tc[r.label]||{bg:'#ede9fe'}).bg,(tc[r.label]||{text:'#4c1d95'}).text)}
+          <span style="font-size:12px;color:#1e293b;flex:1;line-height:1.4">${esc(r.title)}</span>
+          <span style="color:#94a3b8;font-size:13px">→</span>
+        </div>`).join('')
+    }
+  </div>`;
+}
+
+function renderOverview(){
+  const steps=[{n:1,label:"Đặt căn",c:"#1e40af"},{n:2,label:"Ký TTĐC / TTKQ",c:"#0369a1"},{n:3,label:"Ký HĐMB / HĐT / VBCN",c:"#0f766e"},{n:4,label:"Hỗ trợ vay Ngân hàng",c:"#7c3aed"},{n:5,label:"Chuyển nhượng HĐMB / HĐT",c:"#b45309"},{n:6,label:"Bàn giao · Tất toán · Sổ đỏ",c:"#15803d"}];
+  const parties=[{n:"Khách hàng (KH)",bg:"#fef3c7",b:"#f59e0b",t:"#92400e"},{n:"NVKD / Đại lý",bg:"#dbeafe",b:"#3b82f6",t:"#1e3a8a"},{n:"Phòng Thủ tục (PTT)",bg:"#dcfce7",b:"#22c55e",t:"#14532d"},{n:"Ngân hàng (NH)",bg:"#f3e8ff",b:"#a855f7",t:"#581c87"},{n:"Chủ đầu tư (CĐT)",bg:"#fee2e2",b:"#ef4444",t:"#7f1d1d"}];
+  const warns=["NGHIÊM CẤM dùng SĐT/email không phải của KH để tạo tài khoản TTOL — vi phạm pháp lý, NVKD/ĐL chịu toàn bộ trách nhiệm.","TUYỆT ĐỐI KHÔNG thực hiện chuyển nhượng hoặc thanh lý tại nhà KH.","NNN ký HĐMB phải có mặt tại VN, HC có dấu nhập cảnh tại thời điểm ký.","Hồ sơ ký tại nhà phải về PTT trong 3 ngày làm việc — quá hạn PTT hủy toàn bộ hồ sơ đã ký.","Căn có PD riêng / back CS cũ / ưu đãi ngoài CSBH: KHÔNG xử lý TTOL.","Vợ chồng (1 bên là NNN) mua tại TP.HCM: cả hai phải nhập cảnh và cùng ký HĐMB.","Book căn NNN: kiểm tra room trên PM TRƯỚC khi xác nhận với KH — không để KH đặt cọc rồi mới kiểm tra."];
+  return`
+    <h2 class="page-title">🏢 Tổng quan Giao dịch BĐS Vinhomes</h2>
+    <div class="card" style="padding:16px">
+      <div class="sec-head">📊 Tiến trình Giao dịch — 6 bước</div>
+      ${steps.map((s,i,arr)=>`
+        <div style="display:flex;align-items:center;gap:9px">
+          <div style="background:${s.c};color:#fff;border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0">${s.n}</div>
+          <div style="background:${s.c}18;border:1.5px solid ${s.c}40;border-left:4px solid ${s.c};border-radius:8px;padding:9px 12px;flex:1;font-weight:600;font-size:13px;color:#1e293b;line-height:1.3">${s.label}</div>
+        </div>
+        ${i<arr.length-1?'<div style="width:1px;height:5px;background:#cbd5e1;margin-left:13px"></div>':''}
+      `).join('')}
+    </div>
+    <div class="card" style="padding:16px">
+      <div class="sec-head">👥 Các bên Tham gia</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">
+        ${parties.map(p=>`<div style="background:${p.bg};border:2px solid ${p.b};border-radius:8px;padding:7px 11px;font-weight:700;color:${p.t};font-size:12px">${p.n}</div>`).join('')}
+      </div>
+    </div>
+    <div class="warn-box">
+      <div class="warn-title">🚫 NGHIÊM TRỌNG — TUYỆT ĐỐI TRÁNH</div>
+      ${warns.map(w=>`<div class="warn-item"><span class="warn-x">✗</span><span class="warn-text">${esc(w)}</span></div>`).join('')}
+    </div>
+    <div class="acc">
+      ${accBtn('abbr',`📖 Từ viết tắt (${ABBR.length} thuật ngữ)`,state.openAbbr,null,'#1e3a8a')}
+      ${state.openAbbr?`<div class="acc-body"><div class="abbr-grid">${ABBR.map(([a,f])=>`<div class="abbr-item"><span class="abbr-key">${esc(a)}</span><span class="abbr-val">${esc(f)}</span></div>`).join('')}</div></div>`:''}
+    </div>`;
+}
+
+function renderProducts(){
+  return`
+    <h2 class="page-title">🏗️ Loại Sản phẩm & Quyền Sở hữu</h2>
+    <p class="page-sub">Phân loại sản phẩm BĐS Vinhomes, thời hạn sở hữu và điều kiện áp dụng cho Người VN và NNN.</p>
+    ${PRODUCTS.map((p,i)=>`
+      <div class="acc">
+        ${accBtn(`pr:${i}`,p.name,state.openPR===i,null,'#1e3a8a',`Mục đích: ${p.purpose}`)}
+        ${state.openPR===i?`<div class="acc-body" style="padding:10px 15px 15px">
+          ${p.note?infoBox(esc(p.note),'#fffbeb','#f59e0b'):''}
+          <div class="product-grid">
+            <div class="product-col vn-col-bg">
+              <div class="product-col-title" style="color:#1e40af">🇻🇳 NGƯỜI VIỆT NAM</div>
+              ${[["HĐMB",p.vn.hd],["HĐ Thuê",p.vn.thue],["Chuyển nhượng",p.vn.cn]].map(([lbl,v])=>`<div class="product-row"><span class="product-row-label">${lbl}:</span>${boolVal(v)}</div>`).join('')}
+              <div style="font-size:11px;color:#64748b;margin-top:4px">⏱ <span style="color:#1e3a8a;font-weight:600">${esc(p.vn.thoihan)}</span></div>
+            </div>
+            <div class="product-col nn-col-bg">
+              <div class="product-col-title" style="color:#15803d">🌏 NGƯỜI NƯỚC NGOÀI</div>
+              ${[["HĐMB",p.nn.hd],["HĐ Thuê",p.nn.thue],["Chuyển nhượng",p.nn.cn]].map(([lbl,v])=>`<div class="product-row"><span class="product-row-label">${lbl}:</span>${boolVal(v)}</div>`).join('')}
+              <div style="font-size:11px;color:#64748b;margin-top:4px">⏱ <span style="color:#15803d;font-weight:600">${esc(p.nn.thoihan)}</span></div>
+            </div>
+          </div>
+        </div>`:''}
+      </div>`).join('')}`;
+}
+
+function renderProcess(){
+  return`
+    <h2 class="page-title">🔄 Quy trình Chi tiết Từng Giai đoạn</h2>
+    <p class="page-sub">Các bước công việc theo thứ tự, phân rõ trách nhiệm từng bên.</p>
+    ${PROCESS.map((ph,i)=>`
+      <div class="acc">
+        ${accBtn(`proc:${i}`,ph.title,state.openProcess===i,ph.phase,ph.color)}
+        ${state.openProcess===i?`<div class="acc-body" style="padding:10px 15px 14px">
+          ${ph.note?infoBox(esc(ph.note),'#fff7ed','#f97316'):''}
+          ${ph.modes?`<div class="mode-wrap">${ph.modes.map(m=>`<span class="mode-pill">${esc(m)}</span>`).join('')}</div>`:''}
+          <div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">
+            ${ph.steps.map((s,j)=>{
+              const as=ACTOR_STYLE[s.actor]||{bg:"#f1f5f9",text:"#475569"};
+              return`<div class="step-row">
+                ${actorBadge(s.actor)}
+                <div class="step-text" style="background:${ph.color}0d;border-left-color:${ph.color}">
+                  <span style="color:#94a3b8;font-size:10px;margin-right:4px">B${j+1}.</span>${esc(s.action)}
+                </div>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>`:''}
+      </div>`).join('')}`;
+}
+
+function renderChecklist(){
+  return`
+    <h2 class="page-title">📋 Checklist Công việc NVKD</h2>
+    <p class="page-sub">Danh sách công việc và trách nhiệm theo từng tình huống giao dịch.</p>
+    <div class="warn-box">
+      <div class="warn-title">🚫 CÁC LỖI NGHIÊM TRỌNG CẦN TRÁNH TUYỆT ĐỐI</div>
+      ${["NGHIÊM CẤM dùng SĐT/email không phải của KH để tạo tài khoản TTOL — vi phạm pháp lý, NVKD/ĐL chịu toàn bộ trách nhiệm.","TUYỆT ĐỐI KHÔNG thực hiện chuyển nhượng hoặc thanh lý tại nhà KH.","NNN ký HĐMB: phải có mặt thực tế tại VN, HC có đóng dấu nhập cảnh VN tại thời điểm ký.","Hồ sơ ký tại nhà phải bàn giao về PTT trong 3 ngày làm việc — quá hạn PTT hủy toàn bộ.","Căn có PD riêng / back CS cũ / ưu đãi ngoài CSBH: KHÔNG xử lý TTOL.","Căn áp dụng VinClub: phải điều chỉnh đúng hạng tài khoản KH TRƯỚC khi book.","KH NNN: kiểm tra room trên PM TRƯỚC khi xác nhận — không để KH đặt cọc rồi mới phát hiện hết room."].map(w=>`<div class="warn-item"><span class="warn-x">✗</span><span class="warn-text">${esc(w)}</span></div>`).join('')}
+    </div>
+    ${CHECKLIST.map((cl,i)=>`
+      <div class="acc">
+        ${accBtn(`cl:${i}`,`${cl.icon} ${cl.phase}`,state.openCL===i,null,cl.color)}
+        ${state.openCL===i?`<div class="acc-body" style="padding:6px 16px 14px">
+          ${cl.items.map(item=>`<div class="check-item"><span class="check-icon">☐</span><span class="check-text">${esc(item)}</span></div>`).join('')}
+        </div>`:''}
+      </div>`).join('')}`;
+}
+
+function renderKnowledge(){
+  return`
+    <h2 class="page-title">📚 Kiến thức Cần Nắm</h2>
+    <p class="page-sub">Đối tượng mua, tỷ lệ NNN, hình thức ký, VinClub và căn cứ pháp lý.</p>
+    ${KNOWLEDGE.map((k,i)=>`
+      <div class="acc">
+        ${accBtn(`k:${i}`,`${k.icon} ${k.topic}`,state.openK===i)}
+        ${state.openK===i?`<div class="acc-body" style="padding:6px 15px 14px">
+          ${k.items.map((item,j)=>`
+            <div style="border-bottom:${j<k.items.length-1?'1px solid #f1f5f9':'none'};padding:9px 0">
+              <div style="font-weight:700;color:#1e3a8a;font-size:12px;margin-bottom:4px">▸ ${esc(item.name)}</div>
+              <div style="color:#475569;font-size:12px;line-height:1.7;padding-left:10px;white-space:pre-line">${esc(item.note)}</div>
+            </div>`).join('')}
+        </div>`:''}
+      </div>`).join('')}
+    <div class="card" style="padding:14px;margin-top:4px;background:#fffbeb;border:2px solid #f59e0b">
+      <div style="font-weight:800;color:#92400e;font-size:12px;margin-bottom:8px">⭐ QUY TẮC PHÁP LÝ QUAN TRỌNG</div>
+      ${["Căn hộ CC: NNN cá nhân sở hữu tối đa 50 năm từ ngày cấp GCN. Tổ chức NN: không vượt thời hạn hoạt động tại VN.","Biệt thự / Condotel: 70 năm kể từ ngày Nhà nước giao đất / cho thuê đất cho CĐT.","Office-tel / DTTM: 50 năm — NNN cá nhân không được mua, chỉ DNNN được thuê dài hạn.","NNN mua tại TP.HCM: hiện đang vướng việc cấp sổ — cần cập nhật diễn biến pháp lý trước khi tư vấn.","Chuyển nhượng và thanh lý KHÔNG được thực hiện tại nhà KH.","Phê duyệt (PD) theo CNPQ là bắt buộc cho: ưu đãi ngoài CSBH, back CS cũ, KH NNN, TTOL và ký tại nhà."].map(r=>`<div style="display:flex;gap:7px;margin-bottom:6px;align-items:flex-start"><span style="color:#f59e0b;font-weight:900">•</span><span style="color:#78350f;font-size:12px;line-height:1.6">${esc(r)}</span></div>`).join('')}
+    </div>`;
+}
+
+function renderBanks(){
+  const allRatios=BANKS.map(b=>[b.short,b.ratio,b.term,b.grace]);
+  return`
+    <h2 class="page-title">🏦 Ngân hàng Liên kết & Chính sách Vay</h2>
+    <p class="page-sub">6 ngân hàng liên kết Vinhomes — lãi suất, điều kiện, ưu điểm và đầu mối liên hệ.</p>
+    <div class="card" style="padding:14px;margin-bottom:14px;overflow-x:auto">
+      <div class="sec-head">📊 BẢNG SO SÁNH NHANH</div>
+      <table class="compare-table">
+        <thead><tr><th>Ngân hàng</th><th>Tỷ lệ vay</th><th>Thời hạn</th><th>Ân hạn gốc</th></tr></thead>
+        <tbody>
+          ${BANKS.map(b=>`<tr><td style="font-weight:700;color:${b.color}">${esc(b.name)}</td><td>${esc(b.ratio)}</td><td>${esc(b.term)}</td><td>${esc(b.grace)}</td></tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    ${BANKS.map((b,i)=>`
+      <div class="acc">
+        ${accBtn(`b:${i}`,b.name,state.openB===i,b.short,b.color,`Vay tối đa ${b.ratio} · ${esc(b.ratioNote)}`)}
+        ${state.openB===i?`<div class="acc-body" style="padding:10px 15px 15px">
+          <div class="bank-grid">
+            <div class="bank-cell"><div class="bank-cell-label">💰 Tỷ lệ vay</div><div class="bank-cell-val">${esc(b.ratio)}\n${esc(b.ratioNote)}</div></div>
+            <div class="bank-cell"><div class="bank-cell-label">⏱ Thời hạn</div><div class="bank-cell-val">${esc(b.term)}</div></div>
+            <div class="bank-cell" style="grid-column:span 2"><div class="bank-cell-label">⏸ Ân hạn gốc</div><div class="bank-cell-val">${esc(b.grace)}</div></div>
+          </div>
+          ${b.rates.length>0?`
+          <div style="font-weight:700;color:#475569;font-size:11px;letter-spacing:.4px;margin-bottom:5px;margin-top:8px">📈 BẢNG LÃI SUẤT ƯU ĐÃI CỐ ĐỊNH</div>
+          <div style="overflow-x:auto">
+          <table class="rate-table">
+            <thead><tr><th>Kỳ hạn</th><th>Lãi suất cố định</th></tr></thead>
+            <tbody>${b.rates.map(r=>`<tr><td>${esc(r.period)}</td><td style="font-weight:700;color:#1e3a8a">${esc(r.fixed)}</td></tr>`).join('')}</tbody>
+          </table>
+          </div>
+          <div style="background:#f0f9ff;border-radius:6px;padding:7px 10px;font-size:11px;color:#0c4a6e;margin-top:5px">Sau kỳ ưu đãi: ${esc(b.floatRate)}</div>`
+          :`<div style="background:#f8fafc;border-radius:8px;padding:9px 10px;font-size:12px;color:#475569;margin:8px 0">📈 ${esc(b.floatRate)}</div>`}
+          <div style="font-weight:700;color:#475569;font-size:11px;letter-spacing:.4px;margin:10px 0 5px">💳 PHÍ TRẢ NỢ TRƯỚC HẠN</div>
+          <div class="prepay-box">${b.prepay.map(p=>`<div class="prepay-row"><span>•</span><span>${esc(p)}</span></div>`).join('')}</div>
+          <div style="font-weight:700;color:#475569;font-size:11px;letter-spacing:.4px;margin:10px 0 5px">⭐ ĐIỂM ƯU VIỆT</div>
+          ${b.strengths.map(s=>`<div class="strength-row"><span class="strength-check">✓</span><span class="strength-text">${esc(s)}</span></div>`).join('')}
+          <div style="font-weight:700;color:#475569;font-size:11px;letter-spacing:.4px;margin:10px 0 5px">✅ ĐIỀU KIỆN KH</div>
+          <div style="background:#f0fdf4;border-radius:8px;padding:9px 10px">
+            ${b.conditions.map(c=>`<div class="cond-row"><span class="cond-dot">•</span><span class="cond-text">${esc(c)}</span></div>`).join('')}
+          </div>
+          <div style="font-weight:700;color:#475569;font-size:11px;letter-spacing:.4px;margin:10px 0 5px">🏗️ DỰ ÁN ĐANG TÀI TRỢ</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+            ${b.projects.map(p=>pill(p,'#f0fdf4','#15803d',10)).join('')}
+          </div>
+          <div class="contact-box"><div class="contact-label">📍 ĐẦU MỐI LIÊN HỆ</div><div class="contact-val">${nl2br(b.contact)}</div></div>
+        </div>`:''}
+      </div>`).join('')}
+    <div class="card" style="padding:14px;margin-top:6px">
+      <div class="sec-head">📂 DANH MỤC HỒ SƠ VAY VỐN CHUẨN (5 nhóm)</div>
+      ${LOAN_DOCS.map((sec,i)=>`
+        <div class="acc" style="box-shadow:none;border:1px solid #f1f5f9">
+          ${accBtn(`ld:${i}`,sec.title,state.openLD===i,null,sec.color)}
+          ${state.openLD===i?`<div class="acc-body" style="padding:6px 14px 12px">
+            ${sec.items.map((item,j)=>`<div class="loan-doc-item"><span style="color:${sec.color};font-weight:700;flex-shrink:0">•</span><span style="color:#475569;font-size:12px;line-height:1.5">${esc(item)}</span></div>`).join('')}
+          </div>`:''}
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderFaq(){
+  const allTags=["Tất cả",...[...new Set(FAQ.map(f=>f.tag))]];
+  const filtered=state.faqTag==="Tất cả"?FAQ:FAQ.filter(f=>f.tag===state.faqTag);
+  const fFiltered=state.srch?filtered.filter(f=>f.q.toLowerCase().includes(state.srch.toLowerCase())||f.a.toLowerCase().includes(state.srch.toLowerCase())):filtered;
+  return`
+    <h2 class="page-title">💬 FAQ & Tình huống Thực tế</h2>
+    <p class="page-sub">${FAQ.length} câu hỏi thường gặp từ thực tế giao dịch.</p>
+    <div class="tag-filter">
+      ${allTags.map(t=>{const tc=TAG_COLORS[t]||{bg:"#f1f5f9",text:"#475569"};return`<button class="tag-btn" style="background:${state.faqTag===t?'#1e3a8a':tc.bg};color:${state.faqTag===t?'#fff':tc.text}" onclick="setFaqTag('${t}')">${esc(t)}</button>`;}).join('')}
+    </div>
+    ${fFiltered.length===0?infoBox('😕 Không có câu hỏi nào. Thử bộ lọc hoặc từ khóa khác.','#f8fafc','#e2e8f0'):''}
+    ${fFiltered.map((f,i)=>{
+      const realIdx=FAQ.indexOf(f);
+      const tc=TAG_COLORS[f.tag]||{bg:"#f1f5f9",text:"#475569"};
+      return`<div class="acc">
+        ${accBtn(`f:${realIdx}`,`<span style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap">${pill(f.tag,tc.bg,tc.text)}<span style="font-size:12px;font-weight:600;color:#1e293b">${esc(f.q)}</span></span>`,state.openF===realIdx)}
+        ${state.openF===realIdx?`<div class="acc-body" style="padding:6px 15px 14px">
+          <div class="faq-answer">💡 ${esc(f.a)}</div>
+        </div>`:''}
+      </div>`;
+    }).join('')}`;
+}
+
+// ═══════════════════════════════════════════════════════
+// MAIN RENDER
+// ═══════════════════════════════════════════════════════
+function render(){
+  renderTabBar();
+  renderSearchClear();
+  const results=getSearchResults(state.srch);
+  let html='';
+  if(results){
+    html=renderSearch(results);
+  } else {
+    switch(state.tab){
+      case 'overview':  html=renderOverview();  break;
+      case 'products':  html=renderProducts();  break;
+      case 'process':   html=renderProcess();   break;
+      case 'checklist': html=renderChecklist(); break;
+      case 'knowledge': html=renderKnowledge(); break;
+      case 'banks':     html=renderBanks();     break;
+      case 'faq':       html=renderFaq();       break;
+    }
+  }
+  document.getElementById('mainBody').innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════════════
+// SEARCH INPUT HANDLER
+// ═══════════════════════════════════════════════════════
+document.getElementById('searchInput').addEventListener('input',function(){
+  state.srch=this.value;
+  renderSearchClear();
+  render();
+});
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>
